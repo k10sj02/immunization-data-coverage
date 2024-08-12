@@ -1,4 +1,4 @@
-# <center> Report: Immunization Data Coverage </center>
+# <center>Report: Immunization Data Coverage</center>
 
 ## Analysis of Penta 1 Coverage by Region
 
