@@ -34,6 +34,9 @@ st.markdown(
 )
 
 
+from pathlib import Path
+DATA_DIR = Path(__file__).parent
+
 # ── Data loading ───────────────────────────────────────────────────────────────
 @st.cache_data
 def load_coverage():
@@ -87,7 +90,7 @@ def load_outliers():
 
 @st.cache_data
 def load_geo():
-    gdf = gpd.read_file("DataFiles/tza_adm2_map.geojson")
+    gdf = gpd.read_file(DATA_DIR / "DataFiles" / "tza_adm2_map.geojson")
     adm1 = gdf.dissolve(by="ADM1_EN").reset_index()[["ADM1_EN", "geometry"]]
     return adm1
 
