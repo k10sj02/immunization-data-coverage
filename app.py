@@ -37,8 +37,8 @@ st.markdown(
 # ── Data loading ───────────────────────────────────────────────────────────────
 @st.cache_data
 def load_coverage():
-    p1 = pd.read_excel("task1_coverage.xlsx", sheet_name="Penta1Cov")
-    p3 = pd.read_excel("task1_coverage.xlsx", sheet_name="Penta3Cov")
+    p1 = pd.read_excel("DataFiles/task1_coverage.xlsx", sheet_name="Penta1Cov")
+    p3 = pd.read_excel("DataFiles/task1_coverage.xlsx", sheet_name="Penta3Cov")
     # Fix double-multiplication bug in R script (values were x100 twice)
     for df in [p1, p3]:
         for col in ["Coverage", "95% CI Lower", "95% CI Upper", "CI_Lower", "CI_Upper"]:
@@ -66,7 +66,7 @@ def load_coverage():
 
 @st.cache_data
 def load_outliers():
-    df = pd.read_excel("task2_outlier_summary.xlsx", sheet_name="Outlier Summary")
+    df = pd.read_excel("DataFiles/task2_outlier_summary.xlsx", sheet_name="Outlier Summary")
     df.columns = [
         "admin2",
         "indicator_type",
@@ -87,7 +87,7 @@ def load_outliers():
 
 @st.cache_data
 def load_geo():
-    gdf = gpd.read_file("tza_adm2_map.geojson")
+    gdf = gpd.read_file("DataFiles/tza_adm2_map.geojson")
     adm1 = gdf.dissolve(by="ADM1_EN").reset_index()[["ADM1_EN", "geometry"]]
     return adm1
 
