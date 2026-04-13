@@ -146,12 +146,11 @@ GLOSSARY = [
      "and Admin2 for outlier analysis."),
 ]
 
-def glossary_expander():
-    with st.expander("📖 Glossary — Key Terms & Definitions"):
-        st.markdown("Plain-English definitions for all metrics and terms used in this dashboard.")
-        st.markdown("")
+def render_sidebar_glossary():
+    st.sidebar.markdown("---")
+    with st.sidebar.expander("📖 Glossary"):
         for term, defn in GLOSSARY:
-            st.markdown(
+            st.sidebar.markdown(
                 f'<p class="glossary-term">{term}</p>'
                 f'<p class="glossary-def">{defn}</p>'
                 f'<hr style="margin:0.5rem 0; border-color:#e8eef4"/>',
@@ -195,6 +194,7 @@ st.sidebar.markdown(
     "🗺️ *Map* — See geographic patterns in coverage  \n"
     "🔍 *Outliers* — Assess HMIS data quality by district and year"
 )
+render_sidebar_glossary()
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -371,8 +371,6 @@ This dashboard presents vaccine coverage estimates for Tanzania, focusing on the
             combined[col] = combined[col].round(1)
         st.dataframe(combined.sort_values("Region"), use_container_width=True, hide_index=True)
 
-    glossary_expander()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # PAGE 2 – Choropleth Map
@@ -446,8 +444,6 @@ elif page == "🗺️ Choropleth Map":
     unmatched = geo_merged[geo_merged["Coverage"].isna()]["ADM1_EN"].tolist()
     if unmatched:
         st.warning(f"Regions without matched coverage data: {', '.join(unmatched)}")
-
-    glossary_expander()
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -666,5 +662,3 @@ Districts flagged only by SD may be worth a secondary review but are less certai
         display["MAD %"] = display["MAD %"].round(2)
         st.dataframe(display.sort_values(["Year", "District (Admin2)"]),
                      use_container_width=True, hide_index=True)
-
-    glossary_expander()
